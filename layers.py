@@ -45,4 +45,8 @@ class Convolution:
 #     def __init__(self):
     
 #     def forward(self):
-        
+
+class ReLU:
+    def forward(A_prev):
+        Z = np.maximum(A_prev, 0)
+        return Z
