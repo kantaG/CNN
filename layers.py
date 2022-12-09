@@ -76,3 +76,8 @@ class ReLU:
     def forward(A_prev):
         Z = np.maximum(A_prev, 0)
         return Z
+    
+class Flatten:
+    def forward(A_prev):
+        Z = A_prev.reshape(-1)
+        return Z
