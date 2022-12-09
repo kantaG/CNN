@@ -13,7 +13,14 @@ class Convolution:
         self.W = 0.1 * np.random.randn(layer_size, prev_layer_size[0], self.filter_size, self.filter_size)
         self.b = np.zeros((layer_size))
         
-    # def forward(self):
+    def forward(self, A_prev):
+        A_prev_col = self.im2col(A_prev)
+        filter_col = self.W.reshape(self.layer_size, -1).T
+        
+        Z_col = np.dot(A_prev_col, filter_col) + self.b
+        Z = Z_col.reshape(self.layer_size, self.out_h, self.out_w, -1).transpose(0, 3, 1, 2)
+        
+        return Z[0]
         
     def im2col(self, A_prev):
         col = np.zeros((self.layer_size, self.prev_layer_size[0], self.filter_size, self.filter_size, self.out_h, self.out_w))
@@ -26,7 +33,7 @@ class Convolution:
                 col[:, :, y, x, :, :] = A_prev[:, y:y_max:self.stride, x:x_max:self.stride]
                 
         col = col.transpose(0, 4, 5, 1, 2, 3).reshape(self.layer_size * self.out_h * self.out_w, -1)
-        return col
+        return col        
     
 # class Linear:
 #     def __init__(self):
