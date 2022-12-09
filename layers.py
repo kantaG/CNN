@@ -49,7 +49,14 @@ class Pooling:
         self.out_h = int(1 + (prev_layer_size[1] - self.filter_size) / self.stride)
         self.out_w = int(1 + (prev_layer_size[2] - self.filter_size) / self.stride)
         
-    # def forward(self):
+    def forward(self, A_prev):
+        A_prev_col = self.im2col(A_prev).reshape(-1, self.filter_size * self.filter_size)
+        
+        arg_max = np.argmax(A_prev_col, axis=1)
+        Z_col = np.max(A_prev_col, axis=1)
+        Z = Z_col.reshape(self.out_h, self.out_w, self.prev_layer_size[0]).transpose(2, 0, 1)
+        
+        return Z
         
         
     def im2col(self, A_prev):
