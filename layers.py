@@ -41,8 +41,6 @@ class Linear:
         self.W = 0.1*np.random.randn(prev_layer_size[1], layer_size)
         self.b = np.zeros((layer_size))
         
-        print(self.W)
-        
     def forward(self, A_prev):
         Z = np.dot(A_prev, self.W) + self.b
         A = self.ReLU(Z)
