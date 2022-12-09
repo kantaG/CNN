@@ -41,10 +41,29 @@ class Convolution:
 #     def forward(self):
         
         
-# class Pooling:
-#     def __init__(self):
-    
-#     def forward(self):
+class Pooling:
+    def __init__(self, prev_layer_size):
+        self.prev_layer_size = prev_layer_size
+        self.filter_size = 2
+        self.stride = 2
+        self.out_h = int(1 + (prev_layer_size[1] - self.filter_size) / self.stride)
+        self.out_w = int(1 + (prev_layer_size[2] - self.filter_size) / self.stride)
+        
+    # def forward(self):
+        
+        
+    def im2col(self, A_prev):
+        col = np.zeros((1, self.prev_layer_size[0], self.filter_size, self.filter_size, self.out_h, self.out_w))
+        print(col.shape)
+        
+        for y in range(self.filter_size):
+            y_max = y + self.stride*self.out_h
+            for x in range(self.filter_size):
+                x_max = x + self.stride*self.out_w
+                col[:, :, y, x, :, :] = A_prev[:, y:y_max:self.stride, x:x_max:self.stride]
+                
+        col = col.transpose(0, 4, 5, 1, 2, 3).reshape(1 * self.out_h * self.out_w, -1)
+        return col
 
 class ReLU:
     def forward(A_prev):
