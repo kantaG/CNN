@@ -35,10 +35,22 @@ class Convolution:
         col = col.transpose(0, 4, 5, 1, 2, 3).reshape(self.layer_size * self.out_h * self.out_w, -1)
         return col        
     
-# class Linear:
-#     def __init__(self):
+class Linear:
+    def __init__(self, prev_layer_size, layer_size):
+        # He初期化
+        self.W = 0.1*np.random.randn(prev_layer_size[1], layer_size)
+        self.b = np.zeros((layer_size))
         
-#     def forward(self):
+        print(self.W)
+        
+    def forward(self, A_prev):
+        Z = np.dot(A_prev, self.W) + self.b
+        A = self.ReLU(Z)
+        
+        return A
+    
+    def ReLU(self, Z):
+        return np.maximum(Z, 0)
         
         
 class Pooling:
