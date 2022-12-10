@@ -1,51 +1,70 @@
 import numpy as np
 import emnist
 import layers
+import classifier
 
-t_conv = layers.Convolution([2, 10, 10], 2)
-t_relu = layers.ReLU
-t_pool = layers.Pooling([2, 8, 8])
-t_flat = layers.Flatten
-t_line = layers.Linear([1, 32], 10)
+hidden_layers = [["conv", 32],
+                 ["relu"],
+                 ["pool"],
+                 ["conv", 64],
+                 ["relu"],
+                 ["pool"],
+                 ["flat"],
+                 ["line", 64]]
 
-data1 = [[i+j for i in range(10)] for j in range(10)]
+cnn = classifier.CNN([1, 28, 28], hidden_layers, 10)
 
-data2 = [[i*10+j*10 for i in range(10)] for j in range(10)]
-data = np.array([data1, data2])
+# t_conv = layers.Convolution([2, 10, 10], 2)
+# t_relu = layers.ReLU
+# t_pool = layers.Pooling([2, 8, 8])
+# t_flat = layers.Flatten
+# t_line = layers.Linear([1, 32], 16)
+# t_outp = layers.Output([1, 16], 10)
 
-print("origin")
-print(data.shape)
-print(data)
+# data1 = [[i+j for i in range(10)] for j in range(10)]
 
-data = t_conv.forward(data)
+# data2 = [[i*10+j*10 for i in range(10)] for j in range(10)]
+# data = np.array([data1, data2]) / 1000
 
-print("conv")
-print(data.shape)
-print(data)
+# print("origin")
+# print(data.shape)
+# print(data)
 
-data = t_relu.forward(data)
+# data = t_conv.forward(data)
 
-print("relu")
-print(data.shape)
-print(data)
+# print("conv")
+# print(data.shape)
+# print(data)
 
-data = t_pool.forward(data)
+# data = t_relu.forward(data)
 
-print("pool")
-print(data.shape)
-print(data)
+# print("relu")
+# print(data.shape)
+# print(data)
 
-data = t_flat.forward(data)
+# data = t_pool.forward(data)
 
-print("flat")
-print(data.shape)
-print(data)
+# print("pool")
+# print(data.shape)
+# print(data)
 
-data = t_line.forward(data)
+# data = t_flat.forward(data)
 
-print("line")
-print(data.shape)
-print(data)
+# print("flat")
+# print(data.shape)
+# print(data)
+
+# data = t_line.forward(data)
+
+# print("line")
+# print(data.shape)
+# print(data)
+
+# data = t_outp.forward(data)
+
+# print("outp")
+# print(data.shape)
+# print(data)
 
 # test = layers.Convolution([2, 10, 10], 2)
 
