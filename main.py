@@ -3,16 +3,13 @@ import emnist
 import layers
 import classifier
 
-hidden_layers = [["conv", 32],
-                 ["relu"],
-                 ["pool"],
-                 ["conv", 64],
+hidden_layers = [["conv", 2],
                  ["relu"],
                  ["pool"],
                  ["flat"],
-                 ["line", 64]]
+                 ["line", 16]]
 
-cnn = classifier.CNN([1, 28, 28], hidden_layers, 10)
+cnn = classifier.CNN([2, 10, 10], hidden_layers, 10)
 
 # t_conv = layers.Convolution([2, 10, 10], 2)
 # t_relu = layers.ReLU
@@ -21,10 +18,12 @@ cnn = classifier.CNN([1, 28, 28], hidden_layers, 10)
 # t_line = layers.Linear([1, 32], 16)
 # t_outp = layers.Output([1, 16], 10)
 
-# data1 = [[i+j for i in range(10)] for j in range(10)]
+data1 = [[i+j for i in range(10)] for j in range(10)]
 
-# data2 = [[i*10+j*10 for i in range(10)] for j in range(10)]
-# data = np.array([data1, data2]) / 1000
+data2 = [[i*10+j*10 for i in range(10)] for j in range(10)]
+data = np.array([data1, data2]) / 1000
+
+print(cnn.predict(data))
 
 # print("origin")
 # print(data.shape)
