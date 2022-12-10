@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.special import softmax
 
 class Convolution:
     def __init__(self, prev_layer_size, layer_size):
@@ -49,6 +50,18 @@ class Linear:
     
     def ReLU(self, Z):
         return np.maximum(Z, 0)
+    
+class Output:
+    def __init__(self, prev_layer_size, layer_size):
+        # He初期化
+        self.W = 0.1*np.random.randn(prev_layer_size[1], layer_size)
+        self.b = np.zeros((layer_size))
+        
+    def forward(self, A_prev):
+        Z = np.dot(A_prev, self.W) + self.b
+        A = softmax(Z)
+        
+        return A
         
         
 class Pooling:
