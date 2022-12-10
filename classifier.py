@@ -25,9 +25,19 @@ class CNN:
             
         layer_list.append(layers.Output(layer_sizes[len(layer_sizes)-1], output_layer_size))
         layer_sizes.append([1, output_layer_size])
+        self.layer_list = layer_list
+        self.layer_sizes = layer_sizes
         
-    # def predict(self):
+    def predict(self, X):
+        Y_hat = self.forward(X)
+        return Y_hat
         
-    # def forward(self):
+    def forward(self, A0):
+        A = A0
+        for layer in self.layer_list:
+            A = layer.forward(A)
+            
+        Y_hat = A
+        return Y_hat
         
     # def evaluate_accuracy(self):
