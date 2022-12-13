@@ -1,4 +1,5 @@
 import layers
+import numpy as np
 
 class CNN:
     def __init__(self, input_layer_size, hidden_layers, output_layer_size):
@@ -40,4 +41,10 @@ class CNN:
         Y_hat = A
         return Y_hat
         
-    # def evaluate_accuracy(self):
+    def evaluate_accuracy(self, X_test, Y_test):
+        accuracy = 0.0
+        for i in range(len(X_test)):
+            Y_hat = np.argmax(self.predict(np.array([X_test[i]])))
+            accuracy += np.sum(Y_hat == Y_test[i])
+            
+        return accuracy / X_test.shape[0]
