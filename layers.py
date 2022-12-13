@@ -25,7 +25,6 @@ class Convolution:
         
     def im2col(self, A_prev):
         col = np.zeros((self.layer_size, self.prev_layer_size[0], self.filter_size, self.filter_size, self.out_h, self.out_w))
-        print(col.shape)
         
         for y in range(self.filter_size):
             y_max = y + self.stride*self.out_h
@@ -84,7 +83,6 @@ class Pooling:
         
     def im2col(self, A_prev):
         col = np.zeros((1, self.prev_layer_size[0], self.filter_size, self.filter_size, self.out_h, self.out_w))
-        print(col.shape)
         
         for y in range(self.filter_size):
             y_max = y + self.stride*self.out_h
